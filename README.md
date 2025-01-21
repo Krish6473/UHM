@@ -1,2 +1,2 @@
-# Infintxp
+# Infintexp
 
