@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Welcome To Baku - Contact us</title>
+<style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 50px;
+            background-color: #f4f4f4;
+        }
+ 
+        form {
+            display: inline-block;
+            text-align: left;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+ 
+        input, button {
+            display: block;
+            width: 100%;
+            margin-bottom: 10px;
+            padding: 10px;
+        }
+ 
+        button {
+            background-color: #4e44a7;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+</style>
+ 
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.6.1/firebase-database.js"></script>
+ 
+    <script>
+        // Your web app's Firebase configuration
+        const firebaseConfig = {
+  apiKey: "AIzaSyCGA17sbgZ1G4Z8-kErcgiWeUzowZaAK5c",
+  authDomain: "infinitexp-5e53c.firebaseapp.com",
+  databaseURL: "https://infinitexp-5e53c-default-rtdb.firebaseio.com",
+  projectId: "infinitexp-5e53c",
+  storageBucket: "infinitexp-5e53c.firebasestorage.app",
+  messagingSenderId: "316751576169",
+  appId: "1:316751576169:web:3e4c6a2e490e87cf63f6f8",
+  measurementId: "G-PR3HBL6S6M"
+        };
+ 
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+ 
+        // Reference to the Realtime Database
+        const database = firebase.database();
+ 
+        // Submit Form Data to Firebase
+        function submitContactForm(event) {
+            event.preventDefault(); // Prevent page reload
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+ 
+            database.ref('contacts').push({
+                name: name,
+                email: email,
+                message: message
+            })
+            .then(() => {
+                alert('Your message has been sent successfully!');
+                document.getElementById('contactForm').reset();
+            })
+            .catch((error) => {
+                alert('Error: ' + error.message);
+            });
+        }
+</script>
+</head>
+<body>
+<h1>Welcome To Baku - Contact us</h1>
+<form id="contactForm" onsubmit="submitContactForm(event)">
+<input type="text" id="name" name="name" placeholder="Enter your name" required>
+<input type="email" id="email" name="email" placeholder="Enter your email" required>
+<input type="text" id="message" name="message" placeholder="Enter your message" required>
+<button type="submit">Submit</button>
+</form>
+</body>
+</html>
